@@ -5,7 +5,7 @@
 using namespace piper;
 
 #if defined(_WIN32) && !defined(__MINGW32__)
-#    define PIPER_API __declspec(dllimport)
+#    define PIPER_API __declspec(dllexport)
 #else
 #    define PIPER_API __attribute__ ((visibility ("default")))
 #endif
@@ -37,7 +37,7 @@ extern "C" {
 	PIPER_API void terminatePiper(PiperConfig* config);
 	PIPER_API SynthesisConfig getSynthesisConfig(Voice* voice);
 	PIPER_API void loadVoice(PiperConfig* config, const char* modelPath, const char* modelConfigPath, Voice* voice, SpeakerId* speakerId);
+	PIPER_API void setSpeakerId(Voice* voice, int64_t speakerId);
 	PIPER_API void textToAudio(PiperConfig* config, Voice* voice, const char* text, SynthesisResult* result, AudioCallback audioCallback);
 	PIPER_API void textToWavFile(PiperConfig* config, Voice* voice, const char* text, const char* audioFile, SynthesisResult* result);
-
 }

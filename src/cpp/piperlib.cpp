@@ -106,6 +106,12 @@ extern "C"
         piper::loadVoice(*config, modelPath, modelConfigPath, *voice, optSpeakerId);
     }
 
+    void setSpeakerId(Voice* voice, int64_t speakerId) {
+        if (speakerId >= 0 && speakerId < voice->modelConfig.numSpeakers) {
+            voice->synthesisConfig.speakerId = speakerId;
+        }
+    }
+
     void textToAudio(PiperConfig* config, Voice* voice, const char* text, SynthesisResult* result, AudioCallback audioCallback) {
         std::vector<int16_t> audioBuf;
         piper::textToAudio(*config, *voice, text, audioBuf, *result, [&audioBuf, audioCallback] { audioCallback(audioBuf.data(), audioBuf.size()); });
